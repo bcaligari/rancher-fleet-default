@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: testverse
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: testploy
+  name: testploy
+  namespace: testverse
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: testploy
+  template:
+    metadata:
+      labels:
+        app: testploy
+    spec:
+      containers:
+      - command:
+        - /bin/tail
+        - -f
+        - /dev/null
+        image: busybox
+        name: busybox
